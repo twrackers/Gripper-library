@@ -7,15 +7,21 @@
 class Gripper : public StateMachine
 {
     private:
+        enum E_STATE {
+            eClosed, eOpening, eOpened, eClosing
+        };
+        enum E_COMMAND {
+            eClose, eOpen
+        };
+        
         Servo m_servo;              // servo object
         const int m_pin;            // GPIO pin connected to servo
         const int m_closed;         // closed position (microseconds)
         const int m_opened;         // opened position (microseconds)
         const int m_timer;          // attached time limit
         unsigned long m_switchTime; // time of last open/close (milliseconds)
-        enum E_STATE {
-            eInit, eClosed, eOpening, eOpened, eClosing
-        } m_state;                  // current state
+        E_STATE m_state;            // current state
+        E_COMMAND m_command;        // commanded state
         
     public:
         /**

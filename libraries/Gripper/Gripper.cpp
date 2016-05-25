@@ -11,24 +11,19 @@ Gripper::Gripper(
     m_opened((int) opened), 
     m_timer((int) timer),
     m_switchTime(millis()),
-    m_state(eInit)
+    m_state(eClosed),
+    m_command(eOpen)    // force gripper to open immediately
 {
 }
 
 void Gripper::open()
 {
-    m_servo.attach(m_pin, m_closed, m_opened);
-    m_servo.writeMicroseconds(m_opened);
-    m_switchTime = millis();
-    m_state = eOpening;
+    m_command = eOpen;
 }
 
 void Gripper::close()
 {
-    m_servo.attach(m_pin, m_closed, m_opened);
-    m_servo.writeMicroseconds(m_closed);
-    m_switchTime = millis();
-    m_state = eClosing;
+    m_command = eClose;
 }
 
 bool Gripper::isOpened() const
@@ -44,9 +39,20 @@ bool Gripper::isClosed() const
 bool Gripper::update()
 {
     if (StateMachine::update()) {
-        if (m_state == eInit) {
-            // First time through, open the gripper.
-            open();
+        if (m_state == eOpened && m_command = eClose) {
+            // Activate servo and command it to closed position.
+            m_servo.attach(m_pin, m_closed, m_opened);
+            m_servo.writeMicroseconds(m_closed);
+            // Update state of this object.
+            m_switchTime = millis();
+            m_state = eClosing;
+        } else if (m_state == eClosed && m_command == eOpen) {
+            // Activate servo and command it to opened position.
+            m_servo.attach(m_pin, m_closed, m_opened);
+            m_servo.writeMicroseconds(m_opened);
+            // Update state of this object.
+            m_switchTime = millis();
+            m_state = eOpening;
         } else if (m_state == eOpening || m_state == eClosing) {
             // If gripper is opening or closing, has time limit of motion
             // expired yet?
@@ -54,8 +60,8 @@ bool Gripper::update()
                 // If so, kill the signal driving the servo to de-energize it.
                 m_servo.detach();
                 pinMode(m_pin, INPUT);
-                // Flip the current state.
-                m_state = isOpened() ? eClosed : eOpened;
+                // Update state of this object.
+                m_state = (m_state == eClosing) ? eClosed : eOpened;
             }
         }
         return true;
