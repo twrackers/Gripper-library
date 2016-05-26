@@ -39,7 +39,7 @@ bool Gripper::isClosed() const
 bool Gripper::update()
 {
     if (StateMachine::update()) {
-        if (m_state == eOpened && m_command = eClose) {
+        if (m_state == eOpened && m_command == eClose) {
             // Activate servo and command it to closed position.
             m_servo.attach(m_pin, m_closed, m_opened);
             m_servo.writeMicroseconds(m_closed);

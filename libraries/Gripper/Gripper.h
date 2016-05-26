@@ -30,7 +30,7 @@ class Gripper : public StateMachine
          * @param pin    servo pin
          * @param closed calibrated closed position (microseconds)
          * @param opened calibrated opened position (microseconds)
-         * @param timer  maximum attached time (0 = indefinite)
+         * @param timer  maximum attached time
          */
          Gripper(
             const byte pin,
