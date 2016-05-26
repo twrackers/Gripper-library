@@ -1,14 +1,14 @@
 #include <Servo.h>
 #include <Gripper.h>
 
-int closed = 560;
-int opened = 1420;
+int closed = 620;   // microseconds
+int opened = 1400;  // microseconds
+int timeout = 360;  // milliseconds
 
-Gripper gripper(9, closed, opened, 220);
+Gripper gripper(9, closed, opened, timeout);
 
 void setup() 
 {
-  Serial.begin(115200);
 }
 
 void loop() 
@@ -18,7 +18,5 @@ void loop()
   } else if (digitalRead(3) == 0) {
     gripper.close();
   }
-  if (gripper.update()) {
-    Serial.println(gripper.isOpened());
-  }
+  gripper.update();
 }
