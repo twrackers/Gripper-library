@@ -1,7 +1,7 @@
 #Gripper library
 ### Libraries used:
 ####`Servo` (standard Arduino)
-####`StateMachine` (mine)
+####`StateMachine` (mine, located [here](https://github.com/twrackers/StateMachine-library))
 This library supports opreation of a servo-driven robotic gripper.  The hardware I used in creating this library are:
 - Actobotics parallel gripper kit
 - Actobotics Hitec HS-485B standard size servo
