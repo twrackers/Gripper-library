@@ -1,4 +1,3 @@
-#include <Servo.h>
 #include <Gripper.h>
 
 int closed = 560;   // microseconds
