@@ -1,9 +1,9 @@
 #include <Servo.h>
 #include <Gripper.h>
 
-int closed = 620;   // microseconds
-int opened = 1400;  // microseconds
-int timeout = 360;  // milliseconds
+int closed = 560;   // microseconds
+int opened = 1420;  // microseconds
+int timeout = 600;  // milliseconds
 
 Gripper gripper(9, closed, opened, timeout);
 
