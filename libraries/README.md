@@ -14,3 +14,5 @@ Because a gripper is designed to grip something, this implies that the jaws won'
   3. Determine how long the jaws take to go from fully open to fully closed, then use that as a timeout to de-energize the servo after it has been commanded to close (or open).
 
 I chose option 3 because it required no additional hardware.  To support this, the library constructor also requires this timeout value, in milliseconds.
+
+IMPORTANT: The servo stall condition when an object is gripped will cause the Arduino to reset IF the servo's 5-volt power source is the 5-volt output pin on the Arduino itself.  This source is okay for testing, but for actual use of the gripper, the servo must be powered by a source that can handle the higher current draw from the momentary stall condition before the timeout period de-energizes the servo.
