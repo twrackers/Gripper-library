@@ -1,6 +1,6 @@
 # Gripper-library
 This is an Arduino library to drive a servo-actuated robotic gripper.  An example sketch is also included, which contains the calibration parameters for my specific servo.
-### Libraries used:
+### Libraries used
 ####`Servo` (standard Arduino)
 ####`StateMachine` (mine, located [here](https://github.com/twrackers/StateMachine-library))
 This library supports operation of a servo-driven robotic gripper.  The hardware I used in creating this library are:
@@ -18,7 +18,7 @@ I chose option 3 because it required no additional hardware.  To support this, t
 
 IMPORTANT: The servo stall condition when an object is gripped will cause the Arduino to reset IF the servo's 5-volt power source is the 5-volt output pin on the Arduino itself.  This source is okay for testing, but for actual use of the gripper, the servo must be powered by a source that can handle the higher current draw from the momentary stall condition before the timeout period de-energizes the servo.
 
-#Example sketches
+##Example sketches
 I've included an example sketch which exercises the `Gripper` library.
-##ServoCalibrate
+###ServoCalibrate
 Perhaps I should have called it "GripperExample".  Anyway, this sketch defines a `Gripper` object and sets its position and timing parameters to known values.  In the example I've used what I've determined to be the best parameters for my gripper with a Hitec standard servo installed.  It then allows momentary pushbuttons on two digital input pins (pull-down to ground when pressed) to command the gripper to open or close.  To avoid stall conditions (a high current draw state), the servo is de-energized very quickly after enough time has passed to allow a full-range motion between opened and closed.
