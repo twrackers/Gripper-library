@@ -56,7 +56,7 @@ bool Gripper::update()
         } else if (m_state == eOpening || m_state == eClosing) {
             // If gripper is opening or closing, has time limit of motion
             // expired yet?
-            if ((millis() - (m_switchTime + m_timer)) >= 0) {
+            if ((long) (millis() - (m_switchTime + m_timer)) >= 0) {
                 // If so, kill the signal driving the servo to de-energize it.
                 m_servo.detach();
                 pinMode(m_pin, INPUT);
